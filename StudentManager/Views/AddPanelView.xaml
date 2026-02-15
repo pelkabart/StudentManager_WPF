@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="StudentManager.Views.AddPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TextPrimary" Color="#E8EEFF"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#A9B4D0"/>
+        <SolidColorBrush x:Key="BorderBrushSoft" Color="#22304F"/>
+        <SolidColorBrush x:Key="Surface" Color="#111A2E"/>
+        <SolidColorBrush x:Key="Surface2" Color="#0F172A"/>
+        <SolidColorBrush x:Key="Accent" Color="#2DD4BF"/>
+        <SolidColorBrush x:Key="Accent2" Color="#38BDF8"/>
+
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="18" ShadowDepth="0" Opacity="0.25"/>
+
+        <Style x:Key="H1" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="Muted" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="Label" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <Style x:Key="Input" TargetType="TextBox">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Background" Value="#0C1428"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CaretBrush" Value="{StaticResource Accent}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="Foreground" Value="#061018"/>
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Accent2}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Accent2}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.55"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReadonlyPill" TargetType="Border">
+            <Setter Property="Background" Value="#0C1428"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="14,10"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="14"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0">
+            <TextBlock Style="{StaticResource H1}" Text="Dodaj studenta"/>
+            <TextBlock Style="{StaticResource Muted}" Margin="0,6,0,0"
+                       Text="Uzupełnij dane i dodaj nowy rekord."/>
+        </StackPanel>
+
+        <!-- Card -->
+        <Border Grid.Row="2"
+                Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource BorderBrushSoft}"
+                BorderThickness="1"
+                CornerRadius="16"
+                Padding="18"
+                Effect="{StaticResource CardShadow}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Form -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Indeks -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Label}" Text="Indeks"/>
+                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource ReadonlyPill}">
+                        <TextBlock x:Name="CurrentIdNumber"
+                                   Foreground="{StaticResource TextSecondary}"
+                                   FontStyle="Italic"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Rok -->
+                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource Label}" Text="Rok"/>
+                    <TextBox Grid.Row="1" Grid.Column="2"
+                             x:Name="NewStudentYear"
+                             Style="{StaticResource Input}"
+                             MinWidth="160"/>
+
+                    <!-- Imię -->
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Label}" Text="Imię"/>
+                    <TextBox Grid.Row="4" Grid.Column="0"
+                             x:Name="NewStudentName"
+                             Style="{StaticResource Input}"
+                             MinWidth="160"/>
+
+                    <!-- Nazwisko -->
+                    <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Label}" Text="Nazwisko"/>
+                    <TextBox Grid.Row="4" Grid.Column="2"
+                             x:Name="NewStudentSurname"
+                             Style="{StaticResource Input}"
+                             MinWidth="160"/>
+                </Grid>
+
+                <!-- Button -->
+                <Button Grid.Row="3"
+                        x:Name="AddStudentButton"
+                        Style="{StaticResource PrimaryButton}"
+                        Content="Dodaj"
+                        HorizontalAlignment="Left"
+                        MinWidth="160"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
